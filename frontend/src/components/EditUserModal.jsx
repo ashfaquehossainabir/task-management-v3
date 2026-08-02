@@ -46,7 +46,7 @@ export default function EditUserModal({ user, closeModal, onSaved }) {
         <div className="modal-header">
           <h3>Edit User</h3>
           <button className="close-btn" onClick={closeModal} aria-label="Close">
-            x
+            <X size={16} strokeWidth={2.4} />
           </button>
         </div>
 

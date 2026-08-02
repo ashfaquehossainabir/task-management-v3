@@ -15,7 +15,6 @@
   --bg: #f4f6fb;
   --card-bg: #ffffff;
   --text: #1f2330;
-  --text-white: #ffffff;
   --text-muted: #6b7280;
   --border: #e5e7eb;
 
@@ -155,6 +154,7 @@ input:focus, select:focus {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  color: #ffffff;
 }
 
 .header .avatar {
@@ -178,16 +178,17 @@ input:focus, select:focus {
 
 .header-text h2 {
   font-size: 22px;
-  color: var(--text-white);
+  font-weight: 700;
+  color: #ffffff;
 }
 
 .header-text p {
   font-size: 14px;
-  color: var(--text-white);
+  color: #e0e7ff;
 }
 
 .header-text p span {
-  color: var(--text-white);
+  color: #c7d2fe;
   font-weight: 600;
 }
 
@@ -358,12 +359,14 @@ input:focus, select:focus {
   justify-content: center;
   width: 32px;
   height: 32px;
+  padding: 0;
   background: color-mix(in srgb, var(--text-muted) 12%, transparent);
   border: none;
   border-radius: 50%;
   font-size: 20px;
   color: var(--text-muted);
   cursor: pointer;
+  flex-shrink: 0;
   transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
 }
 

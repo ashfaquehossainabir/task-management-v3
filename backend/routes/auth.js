@@ -7,9 +7,9 @@ const router = express.Router();
 
 // LOGIN
 router.post("/login", async (req, res) => {
-  const { name, password } = req.body;
+  const { email, password } = req.body;
 
-  const user = await User.findOne({ name });
+  const user = await User.findOne({ email: email?.toLowerCase().trim() });
   if (!user) return res.status(401).json({ message: "Invalid credentials" });
 
   if (user.isActive === false) {
@@ -28,7 +28,7 @@ router.post("/login", async (req, res) => {
 
   res.json({
     token,
-    user: { name: user.name, role: user.role },
+    user: { name: user.name, email: user.email, role: user.role },
   });
 });
 

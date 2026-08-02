@@ -8,12 +8,27 @@ import {
   Power,
   X,
   ShieldCheck,
+  Search,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import { API_BASE_URL } from "../../config/api";
 import RegisterUser from "../../pages/RegisterUser";
 import EditUserModal from "../../components/EditUserModal";
 import ConfirmModal from "../../components/ConfirmModal";
+
+function useDebounce(value, delay = 300) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => clearTimeout(handler);
+  }, [value, delay]);
+
+  return debouncedValue;
+}
 
 export default function AdminUserManagementPage() {
   const { user: currentUser } = useAuth();
@@ -22,6 +37,17 @@ export default function AdminUserManagementPage() {
   const [showCreate, setShowCreate] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
   const [deletingUser, setDeletingUser] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const debouncedSearchQuery = useDebounce(searchQuery, 300);
+
+  const filteredUsers = users.filter((u) => {
+    const query = debouncedSearchQuery.trim().toLowerCase();
+    if (!query) return true;
+    return (
+      u.name?.toLowerCase().includes(query) ||
+      u.email?.toLowerCase().includes(query)
+    );
+  });
 
   const fetchUsers = useCallback(async () => {
     try {
@@ -118,6 +144,27 @@ export default function AdminUserManagementPage() {
             Add User
           </button>
         </div>
+
+        <div className="task-filter-bar">
+          <div className="task-filter-container">
+            <div className="search-box">
+              <input
+                type="text"
+                placeholder="Search users by name or email..."
+                className="task-search-input"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <span className="search-icon">
+                <Search size={16} strokeWidth={2.2} />
+              </span>
+            </div>
+
+            {searchQuery !== debouncedSearchQuery && (
+              <span className="searching-indicator">Searching...</span>
+            )}
+          </div>
+        </div>
       </section>
 
       {showCreate && (
@@ -130,7 +177,7 @@ export default function AdminUserManagementPage() {
                 onClick={() => setShowCreate(false)}
                 aria-label="Close"
               >
-                x
+                <X size={18} strokeWidth={2.4} />
               </button>
             </div>
 
@@ -168,6 +215,10 @@ export default function AdminUserManagementPage() {
           <div className="no-task-box">
             <p className="empty-text">No users found</p>
           </div>
+        ) : filteredUsers.length === 0 ? (
+          <div className="no-task-box">
+            <p className="empty-text">❌ No users match your search</p>
+          </div>
         ) : (
           <div className="user-table">
             <div className="user-table-header">
@@ -178,7 +229,7 @@ export default function AdminUserManagementPage() {
               <span>Actions</span>
             </div>
 
-            {users.map((u) => {
+            {filteredUsers.map((u) => {
               const isSelf = u.name === currentUser.name;
               const isActive = u.isActive !== false;
 

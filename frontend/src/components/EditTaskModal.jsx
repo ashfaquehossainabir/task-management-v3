@@ -69,7 +69,7 @@ export default function EditTaskModal({ task, closeModal }) {
         <div className="modal-header">
           <h3>Edit Task</h3>
           <button className="close-btn" onClick={closeModal} aria-label="Close">
-            x
+            <X size={16} strokeWidth={2.4} />
           </button>
         </div>
 

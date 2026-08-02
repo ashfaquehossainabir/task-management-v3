@@ -19,11 +19,11 @@ export function AuthProvider({ children }) {
     }
   }, [user]);
 
-  const login = async (name, password) => {
+  const login = async (email, password) => {
     try {
       const res = await axios.post(
         `${API_BASE_URL}/api/auth/login`,
-        { name, password }
+        { email, password }
       );
 
       localStorage.setItem("token", res.data.token);

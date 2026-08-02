@@ -67,7 +67,7 @@ export default function TaskDetailsModal({ task, closeModal }) {
         <div className="modal-header">
           <h3 style={{ fontSize: "24px" }}>Task Details</h3>
           <button className="close-btn" onClick={closeModal} aria-label="Close">
-            x
+            <X size={16} strokeWidth={2.4} />
           </button>
         </div>
 

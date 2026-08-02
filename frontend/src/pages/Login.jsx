@@ -5,7 +5,7 @@ import "./Login.css";
 export default function Login() {
   const { login } = useAuth();
 
-  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -15,10 +15,10 @@ export default function Login() {
     setError("");
     setLoading(true);
 
-    const success = await login(name, password);
+    const success = await login(email, password);
 
     if (!success) {
-      setError("Invalid name or password");
+      setError("Invalid email or password");
       setLoading(false);
     }
   };
@@ -35,9 +35,10 @@ export default function Login() {
 
         <form onSubmit={submitHandler}>
           <input
-            placeholder="Username"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
             disabled={loading}
           />

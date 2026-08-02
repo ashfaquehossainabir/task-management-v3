@@ -57,7 +57,7 @@ export default function AdminTasksPage() {
                 onClick={() => setShowModal(false)}
                 aria-label="Close"
               >
-                x
+                <X size={18} strokeWidth={2.4} />
               </button>
             </div>
 
@@ -66,7 +66,7 @@ export default function AdminTasksPage() {
         </div>
       )}
 
-      <section className="dashboard-section task-filter-section" style={{ marginTop: "0px" }}>
+      <section className="dashboard-section task-filter-section">
         <div className="task-filter-bar">
           <div className="task-filter-container">
             {/* Search */}
