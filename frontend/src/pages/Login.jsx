@@ -36,7 +36,7 @@ export default function Login() {
         <form onSubmit={submitHandler}>
           <input
             type="email"
-            placeholder="Enter your email"
+            placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -45,7 +45,7 @@ export default function Login() {
 
           <input
             type="password"
-            placeholder="Enter your password"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
