@@ -75,7 +75,7 @@ task-management-app-v2.1/
 ### 1. Clone / unzip the project
 
 ```bash
-cd task-management-app-v2.1
+cd task-management-v3
 ```
 
 ### 2. Backend setup
