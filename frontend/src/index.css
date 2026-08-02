@@ -297,7 +297,7 @@ input:focus, select:focus {
 
 /* Add Task Button */
 .add-task-btn {
-  margin: 20px 0;
+  margin: 20px 0 12px;
   background: var(--gradient-brand);
   color: white;
   padding: 12px 18px;
