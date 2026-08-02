@@ -115,7 +115,7 @@ export default function TaskCard({ task }) {
         className={`priority-${task.priority}`}
         style={{ marginRight: "4px" }}
       >
-        <strong>Priority:</strong> {task.priority}
+        <strong>Priority:</strong>{" "} {task.priority}
       </p>
 
       {isOverdue && (
