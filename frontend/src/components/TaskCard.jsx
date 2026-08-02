@@ -11,6 +11,7 @@ import "./TaskCard.css";
 export default function TaskCard({ task }) {
   const { updateTaskStatus, deleteTask } = useTasks();
   const { user } = useAuth();
+
   const [showEdit, setShowEdit] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
@@ -20,7 +21,9 @@ export default function TaskCard({ task }) {
     new Date(task.deadline) < new Date() &&
     task.status !== "done";
 
-  const canEdit = user.role === "leader" || user.role === "manager";
+  const canEdit =
+    user.role === "leader" || user.role === "manager";
+
   const isEmployee = user.role === "employee";
 
   const getRemainingDays = (deadline) => {
@@ -33,7 +36,9 @@ export default function TaskCard({ task }) {
     due.setHours(0, 0, 0, 0);
 
     const diffTime = due - today;
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const diffDays = Math.ceil(
+      diffTime / (1000 * 60 * 60 * 24)
+    );
 
     if (diffDays === 0) return "⏰ Due today";
     if (diffDays === 1) return "⏳ 1 day left";
@@ -83,9 +88,12 @@ export default function TaskCard({ task }) {
         </p>
       )}
 
-      <p className={`status-${task.status}`} style={{ marginRight: "4px" }}>
+      <p
+        className={`status-${task.status}`}
+        style={{ marginRight: "4px" }}
+      >
         <strong>Status:</strong>{" "}
-        {user.role === "employee" ? (
+        {isEmployee ? (
           <select
             value={task.status}
             onChange={(e) =>
@@ -93,57 +101,74 @@ export default function TaskCard({ task }) {
             }
           >
             <option value="todo">To-Do</option>
-            <option value="in-progress">In Progress</option>
+            <option value="in-progress">
+              In Progress
+            </option>
             <option value="done">Done</option>
           </select>
         ) : (
           task.status
         )}
       </p>
-      
-      <p className={`priority-${task.priority}`} style={{ marginRight: "4px" }}>
-        Priority: {task.priority}
+
+      <p
+        className={`priority-${task.priority}`}
+        style={{ marginRight: "4px" }}
+      >
+        <strong>Priority:</strong> {task.priority}
       </p>
 
       {isOverdue && (
-        <span className="overdue-badge" style={{ marginRight: "4px" }}>⚠ Overdue</span>
+        <span
+          className="overdue-badge"
+          style={{ marginRight: "4px" }}
+        >
+          ⚠ Overdue
+        </span>
       )}
 
-      {/* Leader + Manager only */}
       {canEdit && (
         <div className="task-actions">
-          <button className="edit-btn icon-btn" onClick={() => setShowEdit(true)}>
-            <Pencil size={14} strokeWidth={2.4} />
-            Edit
+          <button
+            className="edit-btn icon-btn"
+            onClick={() => setShowEdit(true)}
+          >
+            <Pencil size={16} />
+            <span>Edit</span>
           </button>
 
           <button
             className="logout-btn icon-btn"
-            onClick={() => setShowDeleteConfirm(true)}
+            onClick={() =>
+              setShowDeleteConfirm(true)
+            }
           >
-            <Trash2 size={14} strokeWidth={2.4} />
-            Delete
+            <Trash2 size={16} />
+            <span>Delete</span>
           </button>
 
           <button
             className="view-btn icon-btn"
-            onClick={() => setShowDetails(true)}
+            onClick={() =>
+              setShowDetails(true)
+            }
           >
-            <Eye size={14} strokeWidth={2.4} />
-            View Details
+            <Eye size={16} />
+            <span>View Details</span>
           </button>
         </div>
       )}
 
-      {/* Employee only */}
       {isEmployee && (
         <div className="task-actions">
           <button
             className="view-btn icon-btn"
-            onClick={() => setShowDetails(true)}
+            onClick={() =>
+              setShowDetails(true)
+            }
           >
-            <Eye size={14} strokeWidth={2.4} />
-            View Details
+            <Eye size={16} />
+            <span>View Details</span>
           </button>
         </div>
       )}
@@ -161,13 +186,19 @@ export default function TaskCard({ task }) {
           message={`Are you sure you want to delete "${task.title}"?`}
           confirmText="Yes, Delete"
           cancelText="Cancel"
-          onCancel={() => setShowDeleteConfirm(false)}
+          onCancel={() =>
+            setShowDeleteConfirm(false)
+          }
           onConfirm={async () => {
             try {
               await deleteTask(task._id);
-              toast.success("Task deleted successfully 🗑️");
+              toast.success(
+                "Task deleted successfully 🗑️"
+              );
             } catch (err) {
-              toast.error("Failed to delete task ❌");
+              toast.error(
+                "Failed to delete task ❌"
+              );
             } finally {
               setShowDeleteConfirm(false);
             }
@@ -178,7 +209,9 @@ export default function TaskCard({ task }) {
       {showDetails && (
         <TaskDetailsModal
           task={task}
-          closeModal={() => setShowDetails(false)}
+          closeModal={() =>
+            setShowDetails(false)
+          }
         />
       )}
     </div>
