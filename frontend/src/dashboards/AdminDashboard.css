@@ -428,11 +428,19 @@
     gap: 24px;
     margin-bottom: 40px;
   }
+
+  .pending-task-list {
+    max-height: 320px;
+  }
 }
 
 @media (max-width: 400px) {
   .stat-card {
     flex: 1 1 100%;
+  }
+
+  .pending-task-list {
+    max-height: 280px;
   }
 }
 
@@ -477,6 +485,8 @@
 
   max-height: 405px;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   padding-right: 6px;
 }
 

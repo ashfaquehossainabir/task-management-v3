@@ -1,7 +1,7 @@
 # TaskFlow — Task Management App
 
 A full-stack MERN task management application with role-based dashboards
-(Admin / Manager / Employee), a responsive sidebar, real-time task tracking,
+(Manager / Leader / Employee), a responsive sidebar, real-time task tracking,
 analytics, and automated deadline email reminders.
 
 - **Frontend:** React 19 + Vite, React Router, Chart.js, lucide-react
