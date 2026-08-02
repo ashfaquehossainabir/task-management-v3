@@ -1,0 +1,132 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 24, 39, 0.55);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: var(--card-bg, #fff);
+  color: var(--text, #1f2330);
+  width: 420px;
+  max-width: 90%;
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: var(--shadow-lg, 0 18px 40px rgba(17, 24, 39, 0.12));
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border, #e5e7eb);
+}
+
+.modal-header h3 {
+  color: var(--text, #1f2330);
+  font-weight: 700;
+}
+
+/* Explicit, high-contrast close button so the icon is always
+   visible against the light modal background. */
+.close-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: color-mix(in srgb, var(--text-muted, #6b7280) 12%, transparent);
+  border: none;
+  border-radius: 50%;
+  font-size: 18px;
+  color: var(--text-muted, #6b7280);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.close-btn:hover {
+  background: color-mix(in srgb, var(--danger, #ef4444) 15%, transparent);
+  color: var(--danger-dark, #dc2626);
+  transform: rotate(90deg);
+}
+
+.task-details p {
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.remaining-days {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary-dark, #4f46e5);
+}
+
+.urgency-badge {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Urgent */
+.urgency-badge.urgent {
+  background: #dc2626;
+  color: white;
+  animation: pulse 1.2s infinite;
+}
+
+/* Warning */
+.urgency-badge.warning {
+  background: #facc15;
+  color: #1e1e2f;
+}
+
+/* Overdue */
+.urgency-badge.overdue {
+  background: #273759;
+  color: #fa9494;
+}
+
+/* Normal */
+.urgency-badge.normal {
+  background: #16a34a;
+  color: white;
+}
+
+/* Pulse animation for urgent */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(220, 38, 38, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.task-details {
+  font-size: 14px;
+  line-height: 1.6;
+}
