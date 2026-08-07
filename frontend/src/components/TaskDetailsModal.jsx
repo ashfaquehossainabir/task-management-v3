@@ -1,5 +1,6 @@
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
+import { formatCurrency, formatCurrencyFull } from "../utils/formatCurrency";
 import "./TaskDetailsModal.css";
 
 export default function TaskDetailsModal({ task, closeModal }) {
@@ -81,6 +82,15 @@ export default function TaskDetailsModal({ task, closeModal }) {
           <p><strong>Assigned To:</strong> {task.assignedTo}</p>
           <p><strong>Status:</strong> {task.status}</p>
           <p><strong>Priority:</strong> {task.priority}</p>
+
+          {formatCurrency(task.projectValue) && (
+            <p>
+              <strong>Project Value:</strong>{" "}
+              <span title={formatCurrencyFull(task.projectValue)}>
+                {formatCurrency(task.projectValue)}
+              </span>
+            </p>
+          )}
 
           {task.deadline && (
             <p>

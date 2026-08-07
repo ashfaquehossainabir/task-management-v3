@@ -57,5 +57,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 24px 16px;
+  overflow-y: auto;
   z-index: 9999;
 }

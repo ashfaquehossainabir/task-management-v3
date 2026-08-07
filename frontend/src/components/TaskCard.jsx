@@ -2,10 +2,12 @@ import { useTasks } from "../context/TaskContext";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { Pencil, Trash2, Eye, User, CalendarDays, AlertTriangle } from "lucide-react";
+import { Pencil, Trash2, Eye, CalendarDays, AlertTriangle, DollarSign } from "lucide-react";
 import EditTaskModal from "./EditTaskModal";
 import ConfirmModal from "./ConfirmModal";
 import TaskDetailsModal from "./TaskDetailsModal";
+import { formatCurrency, formatCurrencyFull } from "../utils/formatCurrency";
+import { getAvatarColor } from "../utils/avatarColor";
 import "./TaskCard.css";
 
 export default function TaskCard({ task }) {
@@ -65,6 +67,14 @@ export default function TaskCard({ task }) {
   const urgency = getDeadlineUrgency(task.deadline);
   const remaining = getRemainingDays(task.deadline);
   const isRemainingOverdue = remaining && remaining.startsWith("⚠");
+  const projectValue = formatCurrency(task.projectValue);
+
+  const getInitials = (name) => {
+    if (!name) return "?";
+    const parts = name.trim().split(/\s+/).filter(Boolean);
+    if (parts.length === 0) return "?";
+    return (parts[0][0] + (parts[1]?.[0] || "")).toUpperCase();
+  };
 
   return (
     <div className={`task-card ${urgency}`}>
@@ -72,39 +82,61 @@ export default function TaskCard({ task }) {
       <div className="task-card-header">
         <h4 className="task-title" title={task.title}>{task.title}</h4>
         <span className={`priority-badge priority-${task.priority}`}>
+          <span className="priority-dot" />
           {task.priority}
         </span>
       </div>
 
-      {/* Meta info: assigned to / deadline */}
+      {/* Identity: who it's for + when it's due */}
       {(user.role !== "employee" || task.deadline) && (
-        <div className="task-meta">
+        <div className="task-info">
           {user.role !== "employee" && (
-            <div className="task-meta-row">
-              <User size={14} strokeWidth={2.2} className="meta-icon" />
-              <span className="meta-text">
-                <span className="meta-label">Assigned to</span> {task.assignedTo}
+            <div className="assignee-row">
+              <span
+                className="avatar"
+                aria-hidden="true"
+                style={{ background: getAvatarColor(task.assignedTo) }}
+              >
+                {getInitials(task.assignedTo)}
+              </span>
+              <span className="assignee-text">
+                <span className="info-label">Assigned to</span>
+                <span className="info-value">{task.assignedTo}</span>
               </span>
             </div>
           )}
 
           {task.deadline && (
-            <div className="task-meta-row">
-              <CalendarDays size={14} strokeWidth={2.2} className="meta-icon" />
-              <span className="meta-text">
-                <span className="meta-label">Deadline</span>{" "}
-                {new Date(task.deadline).toLocaleDateString("en-GB")}
+            <div className="deadline-row">
+              <span className="info-row">
+                <CalendarDays size={14} strokeWidth={2.2} className="meta-icon" />
+                <span className="info-value">
+                  {new Date(task.deadline).toLocaleDateString("en-GB")}
+                </span>
+              </span>
+
+              <span className={`remaining-pill ${isRemainingOverdue ? "is-overdue" : ""}`}>
+                {remaining}
               </span>
             </div>
           )}
         </div>
       )}
 
-      {task.deadline && (
-        <span className={`remaining-days ${isRemainingOverdue ? "is-overdue" : ""}`}>
-          {remaining}
-        </span>
+      {/* Signature: project value stands out as its own stat */}
+      {projectValue && (
+        <div className="project-value-chip" title={formatCurrencyFull(task.projectValue)}>
+          <span className="pv-icon">
+            <DollarSign size={15} strokeWidth={2.6} />
+          </span>
+          <span className="pv-text">
+            <span className="pv-label">Project value</span>
+            <span className="pv-amount">{projectValue}</span>
+          </span>
+        </div>
       )}
+
+      <div className="task-divider" />
 
       {/* Status + overdue badge */}
       <div className="task-card-footer-row">

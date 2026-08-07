@@ -42,13 +42,20 @@ export default function EditTaskModal({ task, closeModal }) {
     deadline: task.deadline
       ? task.deadline.split("T")[0]
       : "",
+    projectValue:
+      task.projectValue !== undefined && task.projectValue !== null
+        ? task.projectValue
+        : "",
   });
 
   const submit = async (e) => {
     e.preventDefault();
 
     try {
-      await updateTask(form);
+      await updateTask({
+        ...form,
+        projectValue: form.projectValue === "" ? 0 : Number(form.projectValue),
+      });
 
       toast.success("Task updated successfully ✨");
 
@@ -130,6 +137,18 @@ export default function EditTaskModal({ task, closeModal }) {
             value={form.deadline}
             onChange={(e) =>
               setForm({ ...form, deadline: e.target.value })
+            }
+          />
+
+          <label>Project Value ($)</label>
+          <input
+            type="number"
+            min="0"
+            step="any"
+            placeholder="e.g. 50000"
+            value={form.projectValue}
+            onChange={(e) =>
+              setForm({ ...form, projectValue: e.target.value })
             }
           />
 

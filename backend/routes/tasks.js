@@ -13,7 +13,7 @@ router.get("/", async (req, res) => {
 // CREATE TASK
 router.post("/", async (req, res) => {
   try {
-    const { title, assignedTo, priority, deadline } = req.body;
+    const { title, assignedTo, priority, deadline, projectValue } = req.body;
 
     if (!title || !assignedTo || !deadline) {
       return res.status(400).json({
@@ -32,6 +32,7 @@ router.post("/", async (req, res) => {
       assignedTo,
       priority,
       deadline,
+      projectValue: projectValue || 0,
       status: "todo",
     });
 

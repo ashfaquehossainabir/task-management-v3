@@ -66,7 +66,7 @@ export default function AdminTasksPage() {
         </div>
       )}
 
-      <section className="dashboard-section task-filter-section" style={{ marginTop: "0px" }}>
+      <section className="dashboard-section task-filter-section">
         <div className="task-filter-bar">
           <div className="task-filter-container">
             {/* Search */}
