@@ -47,10 +47,10 @@ export default function RegisterUser({ closeModal, onCreated }) {
 
   return (
     <form onSubmit={handleSubmit} className="form">
-      <input name="name" placeholder="Name" onChange={handleChange} required />
-      <input name="email" placeholder="Email" onChange={handleChange} required />
+      <input name="name" placeholder="Enter user name" onChange={handleChange} required />
+      <input name="email" placeholder="Enter user email" onChange={handleChange} required />
       <input
-        name="password"
+        name="Enter user password"
         type="password"
         placeholder="Password"
         onChange={handleChange}
