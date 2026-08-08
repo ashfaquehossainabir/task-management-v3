@@ -1,16 +1,29 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import { API_BASE_URL } from "../config/api";
+import { useAuth } from "./AuthContext";
 
 const TaskContext = createContext();
 const API = `${API_BASE_URL}/api/tasks`;
+const authHeaders = () => ({
+  headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+});
 
 export const TaskProvider = ({ children }) => {
+  const { user } = useAuth();
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    axios.get(API).then((res) => setTasks(res.data));
-  }, []);
+    if (!user) {
+      setTasks([]);
+      return;
+    }
+
+    axios
+      .get(API, authHeaders())
+      .then((res) => setTasks(res.data))
+      .catch(() => setTasks([]));
+  }, [user]);
 
   const addTask = async (task) => {
     const res = await axios.post(API, task);

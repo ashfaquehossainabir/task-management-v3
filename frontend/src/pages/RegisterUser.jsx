@@ -2,6 +2,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { UserPlus } from "lucide-react";
 import { API_BASE_URL } from "../config/api";
+import { DEPARTMENTS } from "../data/departments";
 
 export default function RegisterUser({ closeModal, onCreated }) {
   const [form, setForm] = useState({
@@ -9,6 +10,7 @@ export default function RegisterUser({ closeModal, onCreated }) {
     email: "",
     password: "",
     role: "employee",
+    department: DEPARTMENTS[0],
   });
   const [saving, setSaving] = useState(false);
 
@@ -61,6 +63,14 @@ export default function RegisterUser({ closeModal, onCreated }) {
         <option value="employee">Employee</option>
         <option value="leader">Leader</option>
         <option value="manager">Manager</option>
+      </select>
+
+      <select name="department" value={form.department} onChange={handleChange}>
+        {DEPARTMENTS.map((dept) => (
+          <option key={dept} value={dept}>
+            {dept}
+          </option>
+        ))}
       </select>
 
       <button type="submit" className="icon-btn" disabled={saving}>

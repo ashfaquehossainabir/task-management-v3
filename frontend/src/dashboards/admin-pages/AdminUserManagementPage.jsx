@@ -229,6 +229,7 @@ export default function AdminUserManagementPage() {
               <span>Name</span>
               <span>Email</span>
               <span>Role</span>
+              <span>Department</span>
               <span>Status</span>
               <span>Actions</span>
             </div>
@@ -244,6 +245,7 @@ export default function AdminUserManagementPage() {
                   <span>
                     <span className={`role-badge ${u.role}`}>{u.role}</span>
                   </span>
+                  <span className="user-cell-department">{u.department || "—"}</span>
                   <span>
                     <span className={isActive ? "status-active" : "status-inactive"}>
                       ● {isActive ? "Active" : "Inactive"}

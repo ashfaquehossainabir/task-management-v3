@@ -4,12 +4,14 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { X, Save } from "lucide-react";
 import { API_BASE_URL } from "../config/api";
+import { DEPARTMENTS } from "../data/departments";
 
 export default function EditUserModal({ user, closeModal, onSaved }) {
   const [form, setForm] = useState({
     name: user.name,
     email: user.email,
     role: user.role,
+    department: user.department || DEPARTMENTS[0],
     password: "",
   });
   const [saving, setSaving] = useState(false);
@@ -78,6 +80,18 @@ export default function EditUserModal({ user, closeModal, onSaved }) {
             <option value="employee">Employee</option>
             <option value="leader">Leader</option>
             <option value="manager">Manager</option>
+          </select>
+
+          <label>Department</label>
+          <select
+            value={form.department}
+            onChange={(e) => setForm({ ...form, department: e.target.value })}
+          >
+            {DEPARTMENTS.map((dept) => (
+              <option key={dept} value={dept}>
+                {dept}
+              </option>
+            ))}
           </select>
 
           <label>Reset Password</label>

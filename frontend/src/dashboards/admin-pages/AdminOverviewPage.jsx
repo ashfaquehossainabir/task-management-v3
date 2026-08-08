@@ -22,6 +22,7 @@ export default function AdminOverviewPage() {
   const [taskCount, setTaskCount] = useState(0);
   const [employees, setEmployees] = useState([]);
   const isManager = user.role === "manager";
+  const isLeader = user.role === "leader";
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -49,7 +50,7 @@ export default function AdminOverviewPage() {
   }, []);
 
   useEffect(() => {
-    if (!isManager) return;
+    if (!isManager && !isLeader) return;
 
     const fetchEmployees = async () => {
       try {
@@ -70,7 +71,7 @@ export default function AdminOverviewPage() {
     };
 
     fetchEmployees();
-  }, [isManager]);
+  }, [isManager, isLeader]);
 
   const todoCount = tasks.filter((task) => task.status === "todo").length;
 
@@ -191,9 +192,9 @@ export default function AdminOverviewPage() {
       </section>
 
       {/* ===============================
-          Employee Users (Manager only)
+          Employee Users
       ================================ */}
-      {isManager && (
+      {(isManager || isLeader) && (
         <section className="dashboard-section">
           <span className="eyebrow" style={{ marginBottom: "14px", display: "block" }}>
             Team
@@ -217,10 +218,12 @@ export default function AdminOverviewPage() {
                 Employee Users ({employees.length})
               </h3>
 
-              <Link to="/admin/users" className="icon-btn" style={{ textDecoration: "none" }}>
-                Manage Users
-                <ArrowRight size={15} strokeWidth={2.4} />
-              </Link>
+              {isManager && (
+                <Link to="/admin/users" className="icon-btn" style={{ textDecoration: "none" }}>
+                  Manage Users
+                  <ArrowRight size={15} strokeWidth={2.4} />
+                </Link>
+              )}
             </div>
 
             {employees.length === 0 ? (
@@ -248,6 +251,9 @@ export default function AdminOverviewPage() {
                     >
                       {emp.email}
                     </p>
+                    {emp.department && (
+                      <span className="department-chip">{emp.department}</span>
+                    )}
                     <span
                       className={emp.isActive === false ? "status-inactive" : "status-active"}
                     >

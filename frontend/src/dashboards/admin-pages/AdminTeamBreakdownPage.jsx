@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 import { UserCircle2, Search, SearchX } from "lucide-react";
 import { useTasks } from "../../context/TaskContext";
+import { API_BASE_URL } from "../../config/api";
 
 function useDebounce(value, delay = 300) {
   const [debouncedValue, setDebouncedValue] = useState(value);
@@ -20,6 +22,35 @@ export default function AdminTeamBreakdownPage() {
   const { tasks } = useTasks();
   const [searchQuery, setSearchQuery] = useState("");
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
+  const [departmentFilter, setDepartmentFilter] = useState("all");
+  const [employeeDepartments, setEmployeeDepartments] = useState({});
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const res = await axios.get(`${API_BASE_URL}/api/users`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+
+        const map = {};
+        (Array.isArray(res.data) ? res.data : []).forEach((u) => {
+          if (u.department) map[u.name] = u.department;
+        });
+
+        setEmployeeDepartments(map);
+      } catch (error) {
+        console.error("Failed to fetch employee departments", error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  const departmentOptions = [
+    ...new Set(Object.values(employeeDepartments)),
+  ].sort();
 
   const employeeTaskMap = tasks.reduce((acc, task) => {
     const employee = task.assignedTo || "Unassigned";
@@ -37,7 +68,14 @@ export default function AdminTeamBreakdownPage() {
 
   const query = debouncedSearchQuery.trim().toLowerCase();
   const filteredEmployeeEntries = Object.entries(employeeTaskMap).filter(
-    ([employee]) => !query || employee.toLowerCase().includes(query)
+    ([employee]) => {
+      const matchesQuery = !query || employee.toLowerCase().includes(query);
+      const matchesDepartment =
+        departmentFilter === "all" ||
+        employeeDepartments[employee] === departmentFilter;
+
+      return matchesQuery && matchesDepartment;
+    }
   );
 
   return (
@@ -50,21 +88,46 @@ export default function AdminTeamBreakdownPage() {
 
         <div className="task-filter-bar">
           <div className="task-filter-container">
-            <div className="search-box">
-              <input
-                type="text"
-                placeholder="Search employee..."
-                className="task-search-input"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-              <span className="search-icon">
-                <Search size={16} strokeWidth={2.2} />
-              </span>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "12px",
+                width: "100%",
+                flexWrap: "wrap",
+              }}
+            >
+              <div className="search-box" style={{ flex: 1, minWidth: "200px" }}>
+                <input
+                  type="text"
+                  placeholder="Search employee..."
+                  className="task-search-input"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <span className="search-icon">
+                  <Search size={16} strokeWidth={2.2} />
+                </span>
+              </div>
+
+              <select
+                className="status-filter"
+                value={departmentFilter}
+                onChange={(e) => setDepartmentFilter(e.target.value)}
+              >
+                <option value="all">All Departments</option>
+                {departmentOptions.map((dept) => (
+                  <option key={dept} value={dept}>
+                    {dept}
+                  </option>
+                ))}
+              </select>
             </div>
 
             {searchQuery !== debouncedSearchQuery && (
-              <span className="searching-indicator">Searching...</span>
+              <span className="searching-indicator" style={{ marginTop: "10px" }}>
+                Searching...
+              </span>
             )}
           </div>
         </div>
@@ -90,6 +153,12 @@ export default function AdminTeamBreakdownPage() {
                   />
                   {employee}
                 </h4>
+
+                {employeeDepartments[employee] && (
+                  <span className="department-chip">
+                    {employeeDepartments[employee]}
+                  </span>
+                )}
 
                 <div className="employee-stats">
                   <span className="todo">

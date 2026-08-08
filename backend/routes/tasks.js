@@ -1,12 +1,24 @@
 import express from "express";
 import Task from "../models/Task.js";
 import User from "../models/User.js";
+import { verifyToken } from "../middleware/authMiddleware.js";
+import {
+  isDepartmentScoped,
+  getDepartmentMemberNames,
+} from "../utils/departmentScope.js";
 
 const router = express.Router();
 
 // GET TASKS
-router.get("/", async (req, res) => {
-  const tasks = await Task.find();
+router.get("/", verifyToken, async (req, res) => {
+  let filter = {};
+
+  if (isDepartmentScoped(req.user)) {
+    const memberNames = await getDepartmentMemberNames(req.user.department);
+    filter = { assignedTo: { $in: memberNames } };
+  }
+
+  const tasks = await Task.find(filter);
   res.json(tasks);
 });
 

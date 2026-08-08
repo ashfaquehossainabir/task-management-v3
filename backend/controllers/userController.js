@@ -1,9 +1,10 @@
 import bcrypt from "bcryptjs";
 import User from "../models/User.js";
+import { isDepartmentScoped } from "../utils/departmentScope.js";
 
 export const createUser = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password, role, department } = req.body;
 
     const existingUser = await User.findOne({ email });
     if (existingUser)
@@ -16,6 +17,7 @@ export const createUser = async (req, res) => {
       email,
       password: hashedPassword,
       role,
+      department: department || "",
     });
 
     res.status(201).json({
@@ -25,6 +27,7 @@ export const createUser = async (req, res) => {
         name: newUser.name,
         email: newUser.email,
         role: newUser.role,
+        department: newUser.department,
         isActive: newUser.isActive,
       },
     });
@@ -35,8 +38,12 @@ export const createUser = async (req, res) => {
 
 export const getUsers = async (req, res) => {
   try {
-    const users = await User.find().select(
-      "name email role isActive createdAt"
+    const filter = isDepartmentScoped(req.user)
+      ? { department: req.user.department || "" }
+      : {};
+
+    const users = await User.find(filter).select(
+      "name email role department isActive createdAt"
     );
     res.json(users);
   } catch (error) {
@@ -46,12 +53,13 @@ export const getUsers = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   try {
-    const { name, email, role, password } = req.body;
+    const { name, email, role, department, password } = req.body;
     const updates = {};
 
     if (name !== undefined) updates.name = name;
     if (email !== undefined) updates.email = email;
     if (role !== undefined) updates.role = role;
+    if (department !== undefined) updates.department = department;
 
     if (password) {
       updates.password = await bcrypt.hash(password, 10);

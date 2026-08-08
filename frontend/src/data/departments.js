@@ -1,0 +1,18 @@
+export const DEPARTMENTS = [
+  "Administration",
+  "Sales",
+  "Operations",
+  "Marketing",
+  "Framer",
+  "Shopify",
+  "Webflow",
+  "Wix",
+  "Wordpress",
+  "Full Stack",
+  "Digital Marketing",
+  "UI/UX",
+  "SEO",
+  "Graphics",
+  "Content Writing",
+  "Video Editing",
+];
