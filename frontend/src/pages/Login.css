@@ -8,6 +8,7 @@
 
 /* Page background — matches the header/sidebar gradient family so the
    sign-in screen reads as the same product, not a separate skin. */
+
 .login-page {
   min-height: 100vh;
   background: var(--gradient-header, linear-gradient(120deg, #1e3a8a, #4338ca 55%, #6d28d9));
@@ -21,14 +22,15 @@
 }
 
 /* Same soft glow + dot-grid signature as the dashboard header */
-.login-page::before {
+
+/* .login-page::before {
   content: "";
   position: absolute;
   inset: 0;
   background:
     radial-gradient(480px 320px at 12% 8%, rgba(196, 181, 253, 0.35), transparent 70%),
     radial-gradient(420px 320px at 88% 92%, rgba(20, 184, 166, 0.22), transparent 70%);
-}
+} */
 
 .login-page::after {
   content: "";
