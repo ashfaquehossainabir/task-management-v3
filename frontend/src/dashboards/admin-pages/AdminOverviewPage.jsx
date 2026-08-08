@@ -1,7 +1,16 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Users, ArrowRight } from "lucide-react";
+import {
+  Users,
+  ArrowRight,
+  ListChecks,
+  ListTodo,
+  Clock3,
+  CheckCircle2,
+  PartyPopper,
+  UserCircle2,
+} from "lucide-react";
 import { useTasks } from "../../context/TaskContext";
 import { useAuth } from "../../context/AuthContext";
 import { API_BASE_URL } from "../../config/api";
@@ -76,30 +85,58 @@ export default function AdminOverviewPage() {
   return (
     <>
       <section className="dashboard-section">
+        <span className="eyebrow" style={{ marginBottom: "14px", display: "block" }}>
+          Overview
+        </span>
         <div className="stats-container">
           <div className="stat-card">
-            <h3>Total Users</h3>
-            <p>{userCount}</p>
+            <span className="stat-icon">
+              <Users size={19} strokeWidth={2.3} />
+            </span>
+            <div>
+              <h3>Total Users</h3>
+              <p>{userCount}</p>
+            </div>
           </div>
 
           <div className="stat-card">
-            <h3>Total Tasks</h3>
-            <p>{taskCount}</p>
+            <span className="stat-icon">
+              <ListChecks size={19} strokeWidth={2.3} />
+            </span>
+            <div>
+              <h3>Total Tasks</h3>
+              <p>{taskCount}</p>
+            </div>
           </div>
 
           <div className="stat-card todo">
-            <h3>To-Do Tasks</h3>
-            <p>{todoCount}</p>
+            <span className="stat-icon">
+              <ListTodo size={19} strokeWidth={2.3} />
+            </span>
+            <div>
+              <h3>To-Do Tasks</h3>
+              <p>{todoCount}</p>
+            </div>
           </div>
 
           <div className="stat-card in-progress">
-            <h3>In-Progress Tasks</h3>
-            <p>{inProgressCount}</p>
+            <span className="stat-icon">
+              <Clock3 size={19} strokeWidth={2.3} />
+            </span>
+            <div>
+              <h3>In-Progress Tasks</h3>
+              <p>{inProgressCount}</p>
+            </div>
           </div>
 
           <div className="stat-card done">
-            <h3>Done Tasks</h3>
-            <p>{doneCount}</p>
+            <span className="stat-icon">
+              <CheckCircle2 size={19} strokeWidth={2.3} />
+            </span>
+            <div>
+              <h3>Done Tasks</h3>
+              <p>{doneCount}</p>
+            </div>
           </div>
         </div>
       </section>
@@ -107,12 +144,22 @@ export default function AdminOverviewPage() {
       {/* ===============================
           All Pending Tasks
       ================================ */}
-      <section className="dashboard-section" style={{ marginTop: "24px" }}>
+      <section className="dashboard-section">
+        <span className="eyebrow" style={{ marginBottom: "14px", display: "block" }}>
+          Pending work
+        </span>
         <div className="pending-task-panel" style={{ maxWidth: "none" }}>
           <h3>Pending Tasks ({pendingTasks.length})</h3>
 
           {pendingTasks.length === 0 ? (
-            <p className="empty-text">🎉 No pending tasks</p>
+            <p className="empty-text">
+              <PartyPopper
+                size={16}
+                strokeWidth={2.2}
+                style={{ verticalAlign: "-3px", marginRight: "6px" }}
+              />
+              No pending tasks
+            </p>
           ) : (
             <div className="pending-task-list">
               {pendingTasks.map((task) => (
@@ -147,7 +194,10 @@ export default function AdminOverviewPage() {
           Employee Users (Manager only)
       ================================ */}
       {isManager && (
-        <section className="dashboard-section" style={{ marginTop: "24px" }}>
+        <section className="dashboard-section">
+          <span className="eyebrow" style={{ marginBottom: "14px", display: "block" }}>
+            Team
+          </span>
           <div className="employee-breakdown">
             <div
               style={{
@@ -181,7 +231,14 @@ export default function AdminOverviewPage() {
               <div className="employee-grid task-breakdown" style={{ marginTop: "16px" }}>
                 {employees.map((emp) => (
                   <div key={emp._id} className="employee-card">
-                    <h4>👤 {emp.name}</h4>
+                    <h4>
+                      <UserCircle2
+                        size={16}
+                        strokeWidth={2.2}
+                        style={{ verticalAlign: "-3px", marginRight: "6px", color: "#6366f1" }}
+                      />
+                      {emp.name}
+                    </h4>
                     <p
                       style={{
                         fontSize: "12px",
@@ -192,8 +249,7 @@ export default function AdminOverviewPage() {
                       {emp.email}
                     </p>
                     <span
-                      className={emp.isActive === false ? "todo" : "done"}
-                      style={{ fontSize: "13px", fontWeight: 600 }}
+                      className={emp.isActive === false ? "status-inactive" : "status-active"}
                     >
                       {emp.isActive === false ? "● Inactive" : "● Active"}
                     </span>

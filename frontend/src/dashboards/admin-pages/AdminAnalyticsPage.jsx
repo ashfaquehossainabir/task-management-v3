@@ -1,4 +1,5 @@
 import { Doughnut } from "react-chartjs-2";
+import { PartyPopper } from "lucide-react";
 import {
   Chart as ChartJS,
   ArcElement,
@@ -124,7 +125,10 @@ export default function AdminAnalyticsPage() {
           <h3>Pending Tasks</h3>
 
           {pendingTaskList.length === 0 ? (
-            <p className="empty-text">🎉 No pending tasks</p>
+            <p className="empty-text">
+              <PartyPopper size={16} strokeWidth={2.2} style={{ verticalAlign: "-3px", marginRight: "6px" }} />
+              No pending tasks
+            </p>
           ) : (
             <div className="pending-task-list">
               {pendingTaskList.map((task) => (

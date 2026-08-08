@@ -9,6 +9,7 @@ import {
   X,
   ShieldCheck,
   Search,
+  SearchX,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import { API_BASE_URL } from "../../config/api";
@@ -217,7 +218,10 @@ export default function AdminUserManagementPage() {
           </div>
         ) : filteredUsers.length === 0 ? (
           <div className="no-task-box">
-            <p className="empty-text">❌ No users match your search</p>
+            <p className="empty-text">
+              <SearchX size={16} strokeWidth={2.2} style={{ verticalAlign: "-3px", marginRight: "6px" }} />
+              No users match your search
+            </p>
           </div>
         ) : (
           <div className="user-table">

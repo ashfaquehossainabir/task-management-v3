@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Plus, X, Search } from "lucide-react";
+import { Plus, X, Search, SearchX } from "lucide-react";
 import { useTasks } from "../../context/TaskContext";
 import TaskForm from "../../components/TaskForm";
 import TaskCard from "../../components/TaskCard";
@@ -122,7 +122,10 @@ export default function AdminTasksPage() {
 
         {filterTasks(tasks).length === 0 && tasks.length > 0 && (
           <div className="no-task-box">
-            <p className="empty-text">❌ No matching tasks found</p>
+            <p className="empty-text">
+              <SearchX size={16} strokeWidth={2.2} style={{ verticalAlign: "-3px", marginRight: "6px" }} />
+              No matching tasks found
+            </p>
           </div>
         )}
       </section>

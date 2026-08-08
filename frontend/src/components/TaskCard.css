@@ -413,6 +413,24 @@
    Responsive
 ================================ */
 
+/* Narrow laptop: 3-column grid + full-width sidebar means less
+   room per card, so trim padding/type a touch to keep it comfortable. */
+@media (min-width: 901px) and (max-width: 1150px) {
+  .task-card {
+    padding: 16px 15px 14px;
+  }
+
+  .task-title {
+    font-size: 15.5px;
+  }
+
+  .task-actions .icon-btn {
+    min-width: 0;
+    padding: 8px 8px;
+    font-size: 12px;
+  }
+}
+
 /* Tablet: keep 2 buttons per row comfortably */
 @media (max-width: 640px) {
   .task-card {

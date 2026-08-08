@@ -1,3 +1,4 @@
+import { AlarmClock, PartyPopper, Timer } from "lucide-react";
 import { useTasks } from "../../context/TaskContext";
 import { useAuth } from "../../context/AuthContext";
 import { getAssignedTasks, daysUntilDeadline } from "./employeeHelpers";
@@ -17,11 +18,25 @@ export default function EmployeeDeadlinesPage() {
 
   return (
     <section className="urgent-task-section">
-      <h3>⚠ Upcoming Deadlines (Next 3 Days)</h3>
+      <h3>
+        <AlarmClock
+          size={18}
+          strokeWidth={2.3}
+          style={{ verticalAlign: "-3px", marginRight: "8px" }}
+        />
+        Upcoming Deadlines (Next 3 Days)
+      </h3>
 
       {urgentTasks.length === 0 ? (
         <div className="no-task-box">
-          <p className="empty-text">🎉 No urgent deadlines</p>
+          <p className="empty-text">
+            <PartyPopper
+              size={16}
+              strokeWidth={2.2}
+              style={{ verticalAlign: "-3px", marginRight: "6px" }}
+            />
+            No urgent deadlines
+          </p>
         </div>
       ) : (
         <div className="urgent-task-list">
@@ -33,7 +48,11 @@ export default function EmployeeDeadlinesPage() {
                 <div>
                   <h4>{task.title}</h4>
                   <p className="urgent-deadline">
-                    ⏰{" "}
+                    <Timer
+                      size={13}
+                      strokeWidth={2.4}
+                      style={{ verticalAlign: "-2px", marginRight: "4px" }}
+                    />
                     {daysLeft === 0
                       ? "Due Today"
                       : `Due in ${daysLeft} day(s)`}

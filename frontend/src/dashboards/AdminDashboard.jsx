@@ -56,11 +56,14 @@ export default function AdminDashboard() {
               <div className="avatar">{user.name.charAt(0).toUpperCase()}</div>
 
               <div className="header-text">
-                <h2>Leader Dashboard</h2>
-                <p>
-                  Welcome back, <span>{user.name}</span>
-                </p>
+                <span className="eyebrow header-eyebrow">Leader Dashboard</span>
+                <h2>Welcome back, {user.name.split(" ")[0]}</h2>
+                <p>Here&rsquo;s what&rsquo;s happening across your team today.</p>
               </div>
+            </div>
+
+            <div className="header-meta">
+              <span className="header-role-chip">{user.role}</span>
             </div>
           </div>
 

@@ -1,3 +1,4 @@
+import { UserCircle2 } from "lucide-react";
 import { useTasks } from "../../context/TaskContext";
 
 export default function AdminTeamBreakdownPage() {
@@ -20,6 +21,9 @@ export default function AdminTeamBreakdownPage() {
   return (
     <section className="dashboard-section">
       <div className="employee-breakdown">
+        <span className="eyebrow" style={{ marginBottom: "14px", display: "block" }}>
+          Team
+        </span>
         <h3>Employee-wise Task Breakdown</h3>
 
         {Object.keys(employeeTaskMap).length === 0 ? (
@@ -28,7 +32,14 @@ export default function AdminTeamBreakdownPage() {
           <div className="employee-grid task-breakdown">
             {Object.entries(employeeTaskMap).map(([employee, stats]) => (
               <div key={employee} className="employee-card">
-                <h4>👤 {employee}</h4>
+                <h4>
+                  <UserCircle2
+                    size={16}
+                    strokeWidth={2.2}
+                    style={{ verticalAlign: "-3px", marginRight: "6px", color: "#6366f1" }}
+                  />
+                  {employee}
+                </h4>
 
                 <div className="employee-stats">
                   <span className="todo">

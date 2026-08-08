@@ -2,29 +2,57 @@
    Design Tokens
 ================================ */
 :root {
+  /* Brand */
   --primary: #6366f1;
   --primary-dark: #4f46e5;
+  --primary-light: #818cf8;
   --secondary: #8b5cf6;
+  --accent-teal: #0d9488;
   --gradient-brand: linear-gradient(135deg, #6366f1, #8b5cf6);
+  --gradient-header: linear-gradient(120deg, #1e3a8a 0%, #4338ca 55%, #6d28d9 100%);
 
+  /* Status */
   --success: #16a34a;
   --warning: #f59e0b;
   --danger: #ef4444;
   --danger-dark: #dc2626;
 
+  /* Neutrals */
+  --ink: #12142b;
   --bg: #f4f6fb;
   --card-bg: #ffffff;
   --text: #1f2330;
-  --text-muted: #6b7280;
-  --border: #e5e7eb;
+  --text-muted: #64748b;
+  --text-faint: #94a3b8;
+  --border: #e6e8f0;
 
+  /* Radius */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-full: 999px;
 
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* Shadows */
+  --shadow-xs: 0 2px 6px rgba(17, 24, 39, 0.05);
   --shadow-sm: 0 4px 12px rgba(17, 24, 39, 0.06);
   --shadow-md: 0 10px 25px rgba(17, 24, 39, 0.08);
   --shadow-lg: 0 18px 40px rgba(17, 24, 39, 0.12);
+
+  /* Type */
+  --font-display: "Sora", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 /* ===== RESET ===== */
@@ -32,13 +60,51 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: var(--font-body);
+}
+
+/* ===== TYPOGRAPHY ===== */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+
+/* Small uppercase label used to introduce a section or page
+   ("OVERVIEW", "LEADER DASHBOARD") — used only where it names a
+   real grouping, never as pure decoration. */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--text-faint);
+}
+
+/* Keyboard focus should always be visible, everywhere */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 /* ===== BODY ===== */
 body {
   background-color: var(--bg);
   color: var(--text);
+  overflow-x: hidden;
+}
+
+html {
+  overflow-x: hidden;
 }
 
 /* ===== BUTTONS ===== */
@@ -113,22 +179,10 @@ input:focus, select:focus {
 .main-content {
   flex: 1;
   min-width: 0;
-  margin-left: 260px; /* desktop: matches full sidebar width */
+  /* Tracks the sidebar's actual width (expanded or collapsed), kept
+     in sync by Sidebar.jsx via a CSS var on the document root. */
+  margin-left: var(--current-sidebar-width, 260px);
   transition: margin-left 0.25s ease;
-}
-
-/* Laptop: sidebar collapses to icon rail */
-@media (max-width: 1180px) and (min-width: 901px) {
-  .main-content {
-    margin-left: 84px;
-  }
-}
-
-/* Tablet: sidebar stays as narrow icon rail */
-@media (max-width: 900px) and (min-width: 769px) {
-  .main-content {
-    margin-left: 84px;
-  }
 }
 
 /* Mobile: sidebar becomes an off-canvas drawer, top bar takes its place */
@@ -216,6 +270,24 @@ input:focus, select:focus {
   grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
   gap: 15px;
   align-items: stretch;
+}
+
+@media (max-width: 560px) {
+  .task-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 561px) and (max-width: 900px) {
+  .task-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1440px) {
+  .task-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 /* ===== TASK CARD (fallback; TaskCard.css provides the richer styling) ===== */

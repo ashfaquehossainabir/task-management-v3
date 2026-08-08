@@ -52,11 +52,11 @@ export default function TaskDetailsModal({ task, closeModal }) {
       (due - today) / (1000 * 60 * 60 * 24)
     );
 
-    if (diffDays === 0) return "⏰ Due today";
-    if (diffDays === 1) return "⏳ 1 day left";
-    if (diffDays > 1) return `⏳ ${diffDays} days left`;
+    if (diffDays === 0) return "Due today";
+    if (diffDays === 1) return "1 day left";
+    if (diffDays > 1) return `${diffDays} days left`;
 
-    return `⚠ Overdue by ${Math.abs(diffDays)} days`;
+    return `Overdue by ${Math.abs(diffDays)} days`;
   };
 
   return createPortal(

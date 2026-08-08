@@ -1,3 +1,4 @@
+import { AlarmClock, PartyPopper, UserCircle2, CalendarDays } from "lucide-react";
 import { useTasks } from "../../context/TaskContext";
 
 const isTomorrow = (dateString) => {
@@ -49,18 +50,39 @@ export default function AdminDeadlinesPage() {
   return (
     <section className="dashboard-section" style={{ marginBottom: "16px" }}>
       <div className="employee-breakdown">
-        <h3>⏰ Tasks Due in Next 3 Days</h3>
+        <h3>
+          <AlarmClock
+            size={18}
+            strokeWidth={2.3}
+            style={{ verticalAlign: "-3px", marginRight: "8px" }}
+          />
+          Tasks Due in Next 3 Days
+        </h3>
 
         {Object.keys(upcomingTasksByEmployee).length === 0 ? (
           <div className="no-task-box">
-            <p className="empty-text">🎉 No urgent deadlines</p>
+            <p className="empty-text">
+              <PartyPopper
+                size={16}
+                strokeWidth={2.2}
+                style={{ verticalAlign: "-3px", marginRight: "6px" }}
+              />
+              No urgent deadlines
+            </p>
           </div>
         ) : (
           <div className="employee-grid due-task">
             {Object.entries(upcomingTasksByEmployee).map(
               ([employee, tasks]) => (
                 <div key={employee} className="employee-card">
-                  <h4>👤 {employee}</h4>
+                  <h4>
+                    <UserCircle2
+                      size={16}
+                      strokeWidth={2.2}
+                      style={{ verticalAlign: "-3px", marginRight: "6px", color: "#6366f1" }}
+                    />
+                    {employee}
+                  </h4>
 
                   <div
                     className="employee-stats deadline-list"
@@ -128,9 +150,13 @@ export default function AdminDeadlinesPage() {
                             fontSize: "12px",
                             color: "#6b7280",
                             margin: "10px 0",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "5px",
                           }}
                         >
-                          📅 {new Date(task.deadline).toDateString()}
+                          <CalendarDays size={13} strokeWidth={2.2} />
+                          {new Date(task.deadline).toDateString()}
                         </div>
 
                         <div className={`priority ${task.priority}`}>

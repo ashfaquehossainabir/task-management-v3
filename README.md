@@ -1,4 +1,4 @@
-# TaskFlow — Task Management App
+# Workzen — Task Management App
 
 A full-stack MERN task management application with role-based dashboards
 (Admin / Manager / Employee), a responsive sidebar, real-time task tracking,

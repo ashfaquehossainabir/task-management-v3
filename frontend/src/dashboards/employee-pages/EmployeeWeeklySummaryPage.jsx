@@ -1,3 +1,4 @@
+import { CalendarRange } from "lucide-react";
 import { useTasks } from "../../context/TaskContext";
 import { useAuth } from "../../context/AuthContext";
 import { getAssignedTasks, getWeekRange } from "./employeeHelpers";
@@ -25,7 +26,14 @@ export default function EmployeeWeeklySummaryPage() {
 
   return (
     <section className="weekly-summary">
-      <h3>📅 Weekly Progress Summary</h3>
+      <h3>
+        <CalendarRange
+          size={18}
+          strokeWidth={2.3}
+          style={{ verticalAlign: "-3px", marginRight: "8px" }}
+        />
+        Weekly Progress Summary
+      </h3>
 
       {weeklyTotal === 0 ? (
         <p className="empty-text">No tasks created this week</p>

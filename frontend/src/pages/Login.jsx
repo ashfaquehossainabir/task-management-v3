@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import WorkzenLogo from "../components/WorkzenLogo";
 import "./Login.css";
 
 export default function Login() {
@@ -25,11 +26,13 @@ export default function Login() {
 
   return (
     <div className="login-page">
-      <h1 className="app-title">Task Management System</h1>
+      <div className="app-title">
+        <WorkzenLogo size={40} textSize={32} />
+      </div>
 
       <div className="login-box">
-        <h2>Welcome Back 👋</h2>
-        <p className="subtitle">Please login to your account</p>
+        <h2>Welcome back</h2>
+        <p className="subtitle">Log in to manage your team&rsquo;s work</p>
 
         {error && <p className="error">{error}</p>}
 
@@ -59,7 +62,7 @@ export default function Login() {
                 Logging in...
               </span>
             ) : (
-              "Login"
+              "Log in"
             )}
           </button>
         </form>

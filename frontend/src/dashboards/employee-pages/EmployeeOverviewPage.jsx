@@ -1,3 +1,4 @@
+import { ListChecks, ListTodo, Clock3, CheckCircle2, PartyPopper } from "lucide-react";
 import { useTasks } from "../../context/TaskContext";
 import { useAuth } from "../../context/AuthContext";
 import { getAssignedTasks } from "./employeeHelpers";
@@ -19,37 +20,72 @@ export default function EmployeeOverviewPage() {
 
   return (
     <>
-      <div className="stats-container">
-        <div className="stat-card">
-          <h3>Total Tasks</h3>
-          <p>{totalTasks}</p>
-        </div>
+      <section className="dashboard-section">
+        <span className="eyebrow" style={{ marginBottom: "14px", display: "block" }}>
+          Overview
+        </span>
+        <div className="stats-container">
+          <div className="stat-card">
+            <span className="stat-icon">
+              <ListChecks size={19} strokeWidth={2.3} />
+            </span>
+            <div>
+              <h3>Total Tasks</h3>
+              <p>{totalTasks}</p>
+            </div>
+          </div>
 
-        <div className="stat-card todo">
-          <h3>To-Do</h3>
-          <p>{todoTasks}</p>
-        </div>
+          <div className="stat-card todo">
+            <span className="stat-icon">
+              <ListTodo size={19} strokeWidth={2.3} />
+            </span>
+            <div>
+              <h3>To-Do</h3>
+              <p>{todoTasks}</p>
+            </div>
+          </div>
 
-        <div className="stat-card in-progress">
-          <h3>In Progress</h3>
-          <p>{inProgressTasks}</p>
-        </div>
+          <div className="stat-card in-progress">
+            <span className="stat-icon">
+              <Clock3 size={19} strokeWidth={2.3} />
+            </span>
+            <div>
+              <h3>In Progress</h3>
+              <p>{inProgressTasks}</p>
+            </div>
+          </div>
 
-        <div className="stat-card done">
-          <h3>Done</h3>
-          <p>{doneTasks}</p>
+          <div className="stat-card done">
+            <span className="stat-icon">
+              <CheckCircle2 size={19} strokeWidth={2.3} />
+            </span>
+            <div>
+              <h3>Done</h3>
+              <p>{doneTasks}</p>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* ===============================
           All Pending Tasks
       ================================ */}
-      <section className="dashboard-section" style={{ marginTop: "24px" }}>
+      <section className="dashboard-section">
+        <span className="eyebrow" style={{ marginBottom: "14px", display: "block" }}>
+          Pending work
+        </span>
         <div className="employee-task-panel" style={{ maxWidth: "none" }}>
           <h3>Pending Tasks ({pendingTasks.length})</h3>
 
           {pendingTasks.length === 0 ? (
-            <p className="empty-text">🎉 No pending tasks</p>
+            <p className="empty-text">
+              <PartyPopper
+                size={16}
+                strokeWidth={2.2}
+                style={{ verticalAlign: "-3px", marginRight: "6px" }}
+              />
+              No pending tasks
+            </p>
           ) : (
             <div className="employee-task-list">
               {pendingTasks.map((task) => (
