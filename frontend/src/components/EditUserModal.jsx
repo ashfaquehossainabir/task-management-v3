@@ -10,6 +10,7 @@ export default function EditUserModal({ user, closeModal, onSaved }) {
     name: user.name,
     email: user.email,
     role: user.role,
+    password: "",
   });
   const [saving, setSaving] = useState(false);
 
@@ -18,9 +19,12 @@ export default function EditUserModal({ user, closeModal, onSaved }) {
     setSaving(true);
 
     try {
+      const { password, ...rest } = form;
+      const payload = password.trim() ? { ...rest, password } : rest;
+
       const res = await axios.put(
         `${API_BASE_URL}/api/users/${user._id}`,
-        form,
+        payload,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -75,6 +79,16 @@ export default function EditUserModal({ user, closeModal, onSaved }) {
             <option value="leader">Leader</option>
             <option value="manager">Manager</option>
           </select>
+
+          <label>Reset Password</label>
+          <input
+            type="password"
+            value={form.password}
+            placeholder="Leave blank to keep current password"
+            minLength={6}
+            autoComplete="new-password"
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
+          />
 
           <button type="submit" className="icon-btn" disabled={saving}>
             <Save size={16} strokeWidth={2.4} />
