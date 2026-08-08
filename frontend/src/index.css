@@ -264,6 +264,14 @@ input:focus, select:focus {
   margin-bottom: 6px;
 }
 
+.form label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
 /* ===== TASK GRID ===== */
 .task-grid {
   display: grid;

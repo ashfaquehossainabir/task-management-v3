@@ -49,8 +49,13 @@ export default function RegisterUser({ closeModal, onCreated }) {
 
   return (
     <form onSubmit={handleSubmit} className="form">
+      <label>User Name</label>
       <input name="name" placeholder="Enter user name" onChange={handleChange} required />
+
+      <label>User Email</label>
       <input name="email" placeholder="Enter user email" onChange={handleChange} required />
+
+      <label>User Password</label>
       <input
         name="password"
         type="password"
@@ -59,12 +64,14 @@ export default function RegisterUser({ closeModal, onCreated }) {
         required
       />
 
+      <label>User Role</label>
       <select name="role" onChange={handleChange}>
         <option value="employee">Employee</option>
         <option value="leader">Leader</option>
         <option value="manager">Manager</option>
       </select>
 
+      <label>User Department</label>
       <select name="department" value={form.department} onChange={handleChange}>
         {DEPARTMENTS.map((dept) => (
           <option key={dept} value={dept}>
