@@ -52,9 +52,9 @@ export default function RegisterUser({ closeModal, onCreated }) {
       <input name="name" placeholder="Enter user name" onChange={handleChange} required />
       <input name="email" placeholder="Enter user email" onChange={handleChange} required />
       <input
-        name="Enter user password"
+        name="password"
         type="password"
-        placeholder="Password"
+        placeholder="Enter user password"
         onChange={handleChange}
         required
       />
