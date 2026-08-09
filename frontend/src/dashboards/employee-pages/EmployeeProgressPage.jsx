@@ -9,6 +9,7 @@ import {
 import { useTasks } from "../../context/TaskContext";
 import { useAuth } from "../../context/AuthContext";
 import { getAssignedTasks } from "./employeeHelpers";
+import { formatCount } from "../../utils/formatCount";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -46,6 +47,16 @@ const chartOptions = {
   maintainAspectRatio: false,
   plugins: {
     legend: { position: "bottom" },
+    tooltip: {
+      callbacks: {
+        title: () => "",
+        label: (context) => {
+          const label = context.label || "";
+          const value = context.parsed ?? 0;
+          return `${label}: ${formatCount(value)}`;
+        },
+      },
+    },
   },
 };
 

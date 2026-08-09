@@ -7,6 +7,7 @@ import {
   Legend,
 } from "chart.js";
 import { useTasks } from "../../context/TaskContext";
+import { formatCount } from "../../utils/formatCount";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -40,7 +41,7 @@ const centerTextPlugin = {
 
     ctx.font = "400 12px Inter";
     ctx.fillStyle = "#9ca3af";
-    ctx.fillText(`Total: ${total}`, centerX, centerY + 36);
+    ctx.fillText(`Total: ${formatCount(total)}`, centerX, centerY + 36);
 
     ctx.restore();
   },
@@ -69,6 +70,14 @@ const chartOptions = {
       padding: 12,
       cornerRadius: 10,
       displayColors: false,
+      callbacks: {
+        title: () => "",
+        label: (context) => {
+          const label = context.label || "";
+          const value = context.parsed ?? 0;
+          return `${label}: ${formatCount(value)}`;
+        },
+      },
     },
   },
   animation: {
