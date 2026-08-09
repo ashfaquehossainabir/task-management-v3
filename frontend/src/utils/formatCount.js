@@ -18,3 +18,15 @@ export function formatCount(value) {
     maximumFractionDigits: 1,
   }).format(num);
 }
+
+/**
+ * Returns the exact, comma-formatted number as a string.
+ * Useful for a title/tooltip so the precise value is still available on hover.
+ *
+ * @param {number} value - The raw count.
+ * @returns {string} Exact formatted string, e.g. "1,234,567".
+ */
+export function formatExactCount(value) {
+  const num = Number(value) || 0;
+  return new Intl.NumberFormat("en-US").format(num);
+}
