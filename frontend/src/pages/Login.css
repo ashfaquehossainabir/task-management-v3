@@ -8,7 +8,7 @@
 
 /* Page background — matches the header/sidebar gradient family so the
    sign-in screen reads as the same product, not a separate skin. */
-
+   
 .login-page {
   min-height: 100vh;
   background: var(--gradient-header, linear-gradient(120deg, #1e3a8a, #4338ca 55%, #6d28d9));

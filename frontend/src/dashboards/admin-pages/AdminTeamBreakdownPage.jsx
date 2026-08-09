@@ -3,6 +3,7 @@ import axios from "axios";
 import { UserCircle2, Search, SearchX } from "lucide-react";
 import { useTasks } from "../../context/TaskContext";
 import { API_BASE_URL } from "../../config/api";
+import { formatCount } from "../../utils/formatCount";
 
 function useDebounce(value, delay = 300) {
   const [debouncedValue, setDebouncedValue] = useState(value);
@@ -162,15 +163,15 @@ export default function AdminTeamBreakdownPage() {
 
                 <div className="employee-stats">
                   <span className="todo">
-                    To-Do: <b>{stats.todo}</b>
+                    To-Do: <b>{formatCount(stats.todo)}</b>
                   </span>
 
                   <span className="in-progress">
-                    In-Progress: <b>{stats.inProgress}</b>
+                    In-Progress: <b>{formatCount(stats.inProgress)}</b>
                   </span>
 
                   <span className="done">
-                    Done: <b>{stats.done}</b>
+                    Done: <b>{formatCount(stats.done)}</b>
                   </span>
                 </div>
               </div>

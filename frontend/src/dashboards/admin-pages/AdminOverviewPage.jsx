@@ -14,6 +14,7 @@ import {
 import { useTasks } from "../../context/TaskContext";
 import { useAuth } from "../../context/AuthContext";
 import { API_BASE_URL } from "../../config/api";
+import { formatCount } from "../../utils/formatCount";
 
 export default function AdminOverviewPage() {
   const { tasks } = useTasks();
@@ -96,7 +97,7 @@ export default function AdminOverviewPage() {
             </span>
             <div>
               <h3>Total Users</h3>
-              <p>{userCount}</p>
+              <p>{formatCount(userCount)}</p>
             </div>
           </div>
 
@@ -106,7 +107,7 @@ export default function AdminOverviewPage() {
             </span>
             <div>
               <h3>Total Tasks</h3>
-              <p>{taskCount}</p>
+              <p>{formatCount(taskCount)}</p>
             </div>
           </div>
 
@@ -116,7 +117,7 @@ export default function AdminOverviewPage() {
             </span>
             <div>
               <h3>To-Do Tasks</h3>
-              <p>{todoCount}</p>
+              <p>{formatCount(todoCount)}</p>
             </div>
           </div>
 
@@ -126,7 +127,7 @@ export default function AdminOverviewPage() {
             </span>
             <div>
               <h3>In-Progress Tasks</h3>
-              <p>{inProgressCount}</p>
+              <p>{formatCount(inProgressCount)}</p>
             </div>
           </div>
 
@@ -136,7 +137,7 @@ export default function AdminOverviewPage() {
             </span>
             <div>
               <h3>Done Tasks</h3>
-              <p>{doneCount}</p>
+              <p>{formatCount(doneCount)}</p>
             </div>
           </div>
         </div>

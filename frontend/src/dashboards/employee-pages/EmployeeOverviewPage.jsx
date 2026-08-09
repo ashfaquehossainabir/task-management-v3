@@ -2,6 +2,7 @@ import { ListChecks, ListTodo, Clock3, CheckCircle2, PartyPopper } from "lucide-
 import { useTasks } from "../../context/TaskContext";
 import { useAuth } from "../../context/AuthContext";
 import { getAssignedTasks } from "./employeeHelpers";
+import { formatCount } from "../../utils/formatCount";
 
 export default function EmployeeOverviewPage() {
   const { tasks } = useTasks();
@@ -31,7 +32,7 @@ export default function EmployeeOverviewPage() {
             </span>
             <div>
               <h3>Total Tasks</h3>
-              <p>{totalTasks}</p>
+              <p>{formatCount(totalTasks)}</p>
             </div>
           </div>
 
@@ -41,7 +42,7 @@ export default function EmployeeOverviewPage() {
             </span>
             <div>
               <h3>To-Do</h3>
-              <p>{todoTasks}</p>
+              <p>{formatCount(todoTasks)}</p>
             </div>
           </div>
 
@@ -51,7 +52,7 @@ export default function EmployeeOverviewPage() {
             </span>
             <div>
               <h3>In Progress</h3>
-              <p>{inProgressTasks}</p>
+              <p>{formatCount(inProgressTasks)}</p>
             </div>
           </div>
 
@@ -61,7 +62,7 @@ export default function EmployeeOverviewPage() {
             </span>
             <div>
               <h3>Done</h3>
-              <p>{doneTasks}</p>
+              <p>{formatCount(doneTasks)}</p>
             </div>
           </div>
         </div>
