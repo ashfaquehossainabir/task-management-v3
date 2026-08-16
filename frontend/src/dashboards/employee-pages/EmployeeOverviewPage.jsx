@@ -30,7 +30,7 @@ export default function EmployeeOverviewPage() {
             <span className="stat-icon">
               <ListChecks size={19} strokeWidth={2.3} />
             </span>
-            <div>
+            <div className="stat-info">
               <h3>Total Tasks</h3>
               <p>{formatCount(totalTasks)}</p>
             </div>
@@ -40,7 +40,7 @@ export default function EmployeeOverviewPage() {
             <span className="stat-icon">
               <ListTodo size={19} strokeWidth={2.3} />
             </span>
-            <div>
+            <div className="stat-info">
               <h3>To-Do</h3>
               <p>{formatCount(todoTasks)}</p>
             </div>
@@ -50,7 +50,7 @@ export default function EmployeeOverviewPage() {
             <span className="stat-icon">
               <Clock3 size={19} strokeWidth={2.3} />
             </span>
-            <div>
+            <div className="stat-info">
               <h3>In Progress</h3>
               <p>{formatCount(inProgressTasks)}</p>
             </div>
@@ -60,7 +60,7 @@ export default function EmployeeOverviewPage() {
             <span className="stat-icon">
               <CheckCircle2 size={19} strokeWidth={2.3} />
             </span>
-            <div>
+            <div className="stat-info">
               <h3>Done</h3>
               <p>{formatCount(doneTasks)}</p>
             </div>

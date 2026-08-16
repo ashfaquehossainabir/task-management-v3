@@ -95,7 +95,7 @@ export default function AdminOverviewPage() {
             <span className="stat-icon">
               <Users size={19} strokeWidth={2.3} />
             </span>
-            <div>
+            <div className="stat-info">
               <h3>Total Users</h3>
               <p>{formatCount(userCount)}</p>
             </div>
@@ -105,7 +105,7 @@ export default function AdminOverviewPage() {
             <span className="stat-icon">
               <ListChecks size={19} strokeWidth={2.3} />
             </span>
-            <div>
+            <div className="stat-info">
               <h3>Total Tasks</h3>
               <p>{formatCount(taskCount)}</p>
             </div>
@@ -115,7 +115,7 @@ export default function AdminOverviewPage() {
             <span className="stat-icon">
               <ListTodo size={19} strokeWidth={2.3} />
             </span>
-            <div>
+            <div className="stat-info">
               <h3>To-Do Tasks</h3>
               <p>{formatCount(todoCount)}</p>
             </div>
@@ -125,7 +125,7 @@ export default function AdminOverviewPage() {
             <span className="stat-icon">
               <Clock3 size={19} strokeWidth={2.3} />
             </span>
-            <div>
+            <div className="stat-info">
               <h3>In-Progress Tasks</h3>
               <p>{formatCount(inProgressCount)}</p>
             </div>
@@ -135,7 +135,7 @@ export default function AdminOverviewPage() {
             <span className="stat-icon">
               <CheckCircle2 size={19} strokeWidth={2.3} />
             </span>
-            <div>
+            <div className="stat-info">
               <h3>Done Tasks</h3>
               <p>{formatCount(doneCount)}</p>
             </div>
